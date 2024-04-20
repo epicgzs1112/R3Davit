@@ -63,7 +63,7 @@ We use the [ShapeNet](https://www.shapenet.org/) and [Pix3D](http://pix3d.csail.
 - ShapeNetChairRFC :
 
 ## Get start
-before training you need download the backbone network pretrain model :
+before training you need download the encoder  backbone network pretrain model and R3Davit train on shapenet pthfile   ,train on shapnetchairRFC pthfile :https://drive.google.com/drive/folders/1pxodGEy8Qeyy8aq1BHCrqKLmqBBya27T?usp=drive_link
 ### Training
 after ensure the dataset path is right in config.py,just run the runner.py.
 -config.py   -> runner.py
