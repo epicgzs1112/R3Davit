@@ -74,35 +74,6 @@ when eval just add --test --weights pathtoweight   paprameter in  correspond run
 -config.py   -> runner.py  --test --weights pathtoweight trained on shapnet    eval on shapenet
 -config_testonpix3d.py ->runner_testpix3d.py --test --weights pathtoweight trained on shapenetchairRFC    eval on pix3d
 ## Citation
-
-If you find our code or paper useful in your research, please consider citing:
-```BibTex
-@InProceedings{Yang_2023_ICCV,
-    author    = {Yang, Liying and Zhu, Zhenwei and Lin, Xuxin and Nong, Jian and Liang, Yanyan},
-    title     = {Long-Range Grouping Transformer for Multi-View 3D Reconstruction},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {18257-18267}
-}
-```
-```BibTex
-@inproceedings{ding2022davit,
-  title={Davit: Dual attention vision transformers},
-  author={Ding, Mingyu and Xiao, Bin and Codella, Noel and Luo, Ping and Wang, Jingdong and Yuan, Lu},
-  booktitle={Computer Vision--ECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23--27, 2022, Proceedings, Part XXIV},
-  pages={74--92},
-  year={2022},
-  organization={Springer}
-}
-@InProceedings{Yang_2023_ICCV,
-    author    = {Yang, Liying and Zhu, Zhenwei and Lin, Xuxin and Nong, Jian and Liang, Yanyan},
-    title     = {Long-Range Grouping Transformer for Multi-View 3D Reconstruction},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {18257-18267}
-}
-```
+waiting for accepted!
 
 
