@@ -26,11 +26,7 @@ Official PyTorch implementation of the paper:
 | telephone   | 0.809 / 0.613   | 0.768 / 0.542 | 0.809 / 0.600 | **0.835 / 0.641** |
 |watercraft   | 0.602 / 0.383   | 0.636 / 0.418 | 0.645 / 0.424 | **0.656 / 0.444** | 
 | overall         | 0.670 / 0.417 | 0.679 / 0.432 | 0.700 / 0.447 | **0.711 / 0.464** |
-## Performance on shapnetchairrfc dataset , IOU/F1 both &uarr .
 
-|category|  [Pix2Vox++](https://github.com/hzxie/Pix2Vox)            |[3D-RETR <br> <font size=2></font>](https://github.com/fomalhautb/3D-RETR)       |  [UMIFormer](https://github.com/GaryZhu1996/UMIFormer)    |[R3Davit(ours)(https://github.com/epicgzs1112/R3Davit)| 
-| ------------------------------------------------------------ | --------------- | --------------- | --------------- | --------------- | 
-| chair    | 0.581 / 0.286   | 0.589 / 0.292   | 0.609 / 0.305   | **0.623 / 0.323**   | 
 
 
 
@@ -60,49 +56,21 @@ We use the [ShapeNet](https://www.shapenet.org/) and [Pix3D](http://pix3d.csail.
 - ShapeNet rendering images: http://cvgl.stanford.edu/data2/ShapeNetRendering.tgz
 - ShapeNet voxelized models: http://cvgl.stanford.edu/data2/ShapeNetVox32.tgz
 - Pix3D images & voxelized models: http://pix3d.csail.mit.edu/data/pix3d.zip
-- ShapeNetChairRFC :
+
 
 ## Get start
-before training you need download the backbone network pretrain model :
+before training you need download the encoder  backbone network pretrain model and R3Davit train on shapenet pthfile   :https://drive.google.com/drive/folders/13h4Z_v9qUBDdH7Y3Pve8NwhogsWxhQRg?usp=drive_link
+,https://drive.google.com/drive/folders/1zGtJQr1HM60qYZBPsDBW8-7NzZgrXsUN?usp=drive_link.
 ### Training
 after ensure the dataset path is right in config.py,just run the runner.py.
 -config.py   -> runner.py
 
--config_train_shapnetchair.py -> runner_train_shapenetchiar.py
+
 ### Evaluation
 when eval just add --test --weights pathtoweight   paprameter in  correspond runner.py   file . 
 -config.py   -> runner.py  --test --weights pathtoweight trained on shapnet    eval on shapenet
--config_testonpix3d.py ->runner_testpix3d.py --test --weights pathtoweight trained on shapenetchairRFC    eval on pix3d
-## Citation
 
-If you find our code or paper useful in your research, please consider citing:
-```BibTex
-@InProceedings{Yang_2023_ICCV,
-    author    = {Yang, Liying and Zhu, Zhenwei and Lin, Xuxin and Nong, Jian and Liang, Yanyan},
-    title     = {Long-Range Grouping Transformer for Multi-View 3D Reconstruction},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {18257-18267}
-}
-```
-```BibTex
-@inproceedings{ding2022davit,
-  title={Davit: Dual attention vision transformers},
-  author={Ding, Mingyu and Xiao, Bin and Codella, Noel and Luo, Ping and Wang, Jingdong and Yuan, Lu},
-  booktitle={Computer Vision--ECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23--27, 2022, Proceedings, Part XXIV},
-  pages={74--92},
-  year={2022},
-  organization={Springer}
-}
-@InProceedings{Yang_2023_ICCV,
-    author    = {Yang, Liying and Zhu, Zhenwei and Lin, Xuxin and Nong, Jian and Liang, Yanyan},
-    title     = {Long-Range Grouping Transformer for Multi-View 3D Reconstruction},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {18257-18267}
-}
-```
+## Citation
+waiting for accepted!
 
 
