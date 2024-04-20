@@ -8,7 +8,7 @@ Official PyTorch implementation of the paper:
 
 
 
-## Performance on shapnet dataset , IOU/F1 both &uarr .
+## Performance on shapnet dataset , IOU/F1 both ↑ .
 
 |category|  [Pix2Vox++](https://github.com/hzxie/Pix2Vox)            |[3D-RETR <br> <font size=2></font>](https://github.com/fomalhautb/3D-RETR)       |  [UMIFormer](https://github.com/GaryZhu1996/UMIFormer)    |[R3Davit(ours)(https://github.com/epicgzs1112/R3Davit)| 
 | ------------------------------------------------------------ | --------------- | --------------- | --------------- | --------------- | 
