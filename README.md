@@ -26,11 +26,7 @@ Official PyTorch implementation of the paper:
 | telephone   | 0.809 / 0.613   | 0.768 / 0.542 | 0.809 / 0.600 | **0.835 / 0.641** |
 |watercraft   | 0.602 / 0.383   | 0.636 / 0.418 | 0.645 / 0.424 | **0.656 / 0.444** | 
 | overall         | 0.670 / 0.417 | 0.679 / 0.432 | 0.700 / 0.447 | **0.711 / 0.464** |
-## Performance on shapnetchairrfc dataset , IOU/F1 both &uarr .
 
-|category|  [Pix2Vox++](https://github.com/hzxie/Pix2Vox)            |[3D-RETR <br> <font size=2></font>](https://github.com/fomalhautb/3D-RETR)       |  [UMIFormer](https://github.com/GaryZhu1996/UMIFormer)    |[R3Davit(ours)(https://github.com/epicgzs1112/R3Davit)| 
-| ------------------------------------------------------------ | --------------- | --------------- | --------------- | --------------- | 
-| chair    | 0.581 / 0.286   | 0.589 / 0.292   | 0.609 / 0.305   | **0.623 / 0.323**   | 
 
 
 
@@ -60,19 +56,19 @@ We use the [ShapeNet](https://www.shapenet.org/) and [Pix3D](http://pix3d.csail.
 - ShapeNet rendering images: http://cvgl.stanford.edu/data2/ShapeNetRendering.tgz
 - ShapeNet voxelized models: http://cvgl.stanford.edu/data2/ShapeNetVox32.tgz
 - Pix3D images & voxelized models: http://pix3d.csail.mit.edu/data/pix3d.zip
-- ShapeNetChairRFC :
+
 
 ## Get start
-before training you need download the encoder  backbone network pretrain model and R3Davit train on shapenet pthfile   ,train on shapnetchairRFC pthfile :https://drive.google.com/drive/folders/1pxodGEy8Qeyy8aq1BHCrqKLmqBBya27T?usp=drive_link
+before training you need download the encoder  backbone network pretrain model and R3Davit train on shapenet pthfile   :https://drive.google.com/drive/folders/1pxodGEy8Qeyy8aq1BHCrqKLmqBBya27T?usp=drive_link
 ### Training
 after ensure the dataset path is right in config.py,just run the runner.py.
 -config.py   -> runner.py
 
--config_train_shapnetchair.py -> runner_train_shapenetchiar.py
+
 ### Evaluation
 when eval just add --test --weights pathtoweight   paprameter in  correspond runner.py   file . 
 -config.py   -> runner.py  --test --weights pathtoweight trained on shapnet    eval on shapenet
--config_testonpix3d.py ->runner_testpix3d.py --test --weights pathtoweight trained on shapenetchairRFC    eval on pix3d
+
 ## Citation
 waiting for accepted!
 
