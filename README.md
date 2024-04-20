@@ -39,8 +39,10 @@ The code and pretrain models are coming soon.
 
 ## Installation
 The environment was tested on Ubuntu 22.04LTS and. We trained R3Davit on 1 R4000 with 16 GB  for about 2 days.CUDA 11.3 torch 1.11.0 .
-just pip install   xxxx.    no module named xxxx.
-
+just pip install   xxxx.    no module named xxxx.  
+or just create env from environment.yml file
+conda env create -f environment.yml
+conda activate R3DSWIN++
 
 
 
