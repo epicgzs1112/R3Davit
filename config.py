@@ -9,11 +9,11 @@ cfg = __C
 # Dataset Config
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
-__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = '/root/autodl-tmp/R3DSWIN++/datasets/ShapeNet.json'
-# __C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
-__C.DATASETS.SHAPENET.RENDERING_PATH        = '/root/autodl-tmp/ShapeNetRendering/%s/%s/rendering/%02d.png'
-# __C.DATASETS.SHAPENET.RENDERING_PATH      = '/home/hzxie/Datasets/ShapeNet/PascalShapeNetRendering/%s/%s/render_%04d.jpg'
-__C.DATASETS.SHAPENET.VOXEL_PATH            = '/root/autodl-tmp/ShapeNetVox32/%s/%s/model.binvox'
+__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = 'R3Davit/datasets/ShapeNet.json'
+
+__C.DATASETS.SHAPENET.RENDERING_PATH        = 'R3Davit/ShapeNetRendering/%s/%s/rendering/%02d.png'
+
+__C.DATASETS.SHAPENET.VOXEL_PATH            = 'R3Davit/ShapeNetVox32/%s/%s/model.binvox'
 
 # Dataset
 __C.DATASET = edict()
@@ -34,7 +34,7 @@ __C.CONST.NUM_WORKER = 4  # number of data workers
 
 # Directories
 __C.DIR = edict()
-__C.DIR.OUT_PATH = '/root/autodl-tmp/R3DSWIN++/output'
+__C.DIR.OUT_PATH = 'R3Davit/output'
 
 # Network
 __C.NETWORK = edict()

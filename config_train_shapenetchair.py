@@ -9,7 +9,7 @@ cfg = __C
 # Dataset Config
 __C.DATASETS                                = edict()
 __C.DATASETS.SHAPENET                       = edict()
-__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = '/root/autodl-tmp/R3DSWIN++/datasets/ShapeNetChairRFC.json'
+__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH    = '/root/autodl-tmp/R3Davit/datasets/ShapeNetChairRFC.json'
 #__C.DATASETS.SHAPENET.TAXONOMY_FILE_PATH  = './datasets/PascalShapeNet.json'
 __C.DATASETS.SHAPENET.RENDERING_PATH        = '/root/autodl-tmp/ShapenetChairRFC/%s/%s/rendering/%02d.png'
 
@@ -34,7 +34,7 @@ __C.CONST.NUM_WORKER = 4  # number of data workers
 
 # Directories
 __C.DIR = edict()
-__C.DIR.OUT_PATH = '/root/autodl-tmp/R3DSWIN++/output/ShapeNetRFC'
+__C.DIR.OUT_PATH = '/root/autodl-tmp/R3Davit/output/ShapeNetRFC'
 
 # Network
 __C.NETWORK = edict()

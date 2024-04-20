@@ -15,7 +15,7 @@ __C.DATASETS.SHAPENET.RENDERING_PATH        = '/root/autodl-tmp/ShapenetChairRFC
 
 __C.DATASETS.SHAPENET.VOXEL_PATH            = '/root/autodl-tmp/ShapenetChairRFCmodel/%s/%s/model.binvox'
 __C.DATASETS.PIX3D                          = edict()
-__C.DATASETS.PIX3D.TAXONOMY_FILE_PATH       = '/root/autodl-tmp/R3DSWIN++/datasets/Pix3D.json'
+__C.DATASETS.PIX3D.TAXONOMY_FILE_PATH       = '/root/autodl-tmp/R3Davit/datasets/Pix3D.json'
 __C.DATASETS.PIX3D.ANNOTATION_PATH          = '/root/autodl-tmp/pix3d/pix3d.json'
 __C.DATASETS.PIX3D.RENDERING_PATH           = '/root/autodl-tmp/pix3d/img/%s/%s.%s'
 __C.DATASETS.PIX3D.VOXEL_PATH               = '/root/autodl-tmp/pix3d/model/%s/%s/%s.binvox'
@@ -38,7 +38,7 @@ __C.CONST.NUM_WORKER = 4  # number of data workers
 
 # Directories
 __C.DIR = edict()
-__C.DIR.OUT_PATH = '/root/autodl-tmp/R3DSWIN++/output/ShapeNetRFC'
+__C.DIR.OUT_PATH = '/root/autodl-tmp/R3Davit/output/ShapeNetRFC'
 
 # Network
 __C.NETWORK = edict()
