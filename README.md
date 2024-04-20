@@ -59,7 +59,8 @@ We use the [ShapeNet](https://www.shapenet.org/) and [Pix3D](http://pix3d.csail.
 
 
 ## Get start
-before training you need download the encoder  backbone network pretrain model and R3Davit train on shapenet pthfile   :https://drive.google.com/drive/folders/1pxodGEy8Qeyy8aq1BHCrqKLmqBBya27T?usp=drive_link
+before training you need download the encoder  backbone network pretrain model and R3Davit train on shapenet pthfile   :https://drive.google.com/drive/folders/13h4Z_v9qUBDdH7Y3Pve8NwhogsWxhQRg?usp=drive_link
+,https://drive.google.com/drive/folders/1zGtJQr1HM60qYZBPsDBW8-7NzZgrXsUN?usp=drive_link.
 ### Training
 after ensure the dataset path is right in config.py,just run the runner.py.
 -config.py   -> runner.py
