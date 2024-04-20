@@ -10,7 +10,7 @@ Official PyTorch implementation of the paper:
 
 ## Performance on shapnet dataset , IOU/F1 both ↑ .
 
-|category|  [Pix2Vox++](https://github.com/hzxie/Pix2Vox)            |[3D-RETR <br> <font size=2></font>](https://github.com/fomalhautb/3D-RETR)       |  [UMIFormer](https://github.com/GaryZhu1996/UMIFormer)    |[R3Davit(ours)(https://github.com/epicgzs1112/R3Davit)| 
+|category|  [Pix2Vox++(IJCV2020)](https://github.com/hzxie/Pix2Vox)            |[3D-RETR(BMVC2021) <br> <font size=2></font>](https://github.com/fomalhautb/3D-RETR)       |  [UMIFormer(ICCV2023)](https://github.com/GaryZhu1996/UMIFormer)    |[R3Davit(ours)(https://github.com/epicgzs1112/R3Davit)| 
 | ------------------------------------------------------------ | --------------- | --------------- | --------------- | --------------- | 
 | airplane             | 0.673 / 0.549   | 0.705 / 0.593   | 0.701 / 0.581   | **0.726 / 0.613**   | 
 | bench                | 0.607 / 0.445   | 0.654 / 0.498   | 0.644 / 0.483   | **0.674 / 0.515**   | 
