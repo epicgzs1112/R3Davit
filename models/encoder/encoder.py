@@ -27,46 +27,9 @@ class Encoder(torch.nn.Module):
 
         if torch.distributed.get_rank() == 0:
             print('Base Encoder: VIT')
-        # self.model = VSSM(
-        #     patch_size=4,
-        #     in_chans=3,
-        #     num_classes=1000,
-        #     depths=[2, 2, 5, 2],
-        #     dims=96,
-        #
-        #     ssm_d_state=1,
-        #     ssm_ratio=2.0,
-        #     ssm_rank_ratio=2.0,
-        #     ssm_dt_rank="auto",
-        #     ssm_act_layer="silu",
-        #     ssm_conv=3,
-        #     ssm_conv_bias=False,
-        #     ssm_drop_rate=0.0,
-        #     ssm_init="v0",
-        #     forward_type="v3noz",
-        #
-        #     mlp_ratio=4.0,
-        #     mlp_act_layer="gelu",
-        #     mlp_drop_rate=0.0,
-        #
-        #     drop_path_rate=0.2,
-        #     patch_norm=True,
-        #     norm_layer="ln",
-        #     downsample_version="v3",
-        #     patchembed_version="v2",
-        #     gmlp=False,
-        #     use_checkpoint=False)
-        # self.model.load_state_dict(
-        #     state_dict=torch.load("/root/autodl-tmp/vssm_tiny_0230_ckpt_epoch_262.pth")['model'],
-        #     strict=False)
+
         self.model=create_model("DaViT_base",pretrained=True,checkpoint_path="/root/autodl-tmp/R3DSWIN++/davit/model_best.pth.tar")
-        # self.model2 = Mamba(
-        #     # This module uses roughly 3 * expand * d_model^2 parameters
-        #     d_model=768,  # Model dimension d_model
-        #     d_state=16,  # SSM state expansion factor
-        #     d_conv=4,  # Local convolution width
-        #     expand=16,  # Block expansion factor
-        # )
+
 
 
 
