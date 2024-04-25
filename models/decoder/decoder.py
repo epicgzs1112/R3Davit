@@ -18,72 +18,8 @@ def default(val, d):
         return val
     return d() if isfunction(d) else d
 
-class Attention(torch.nn.Module):
-    def __init__(self, dim, num_heads=8, qkv_bias=False, qk_scale=None, attn_drop=0., proj_drop=0.):
-        super().__init__()
-        self.num_heads = num_heads
-        head_dim = dim // num_heads
-        # NOTE scale factor was wrong in my original version, can set manually to be compat with prev weights
-        self.scale = qk_scale or head_dim ** -0.5
-
-        self.to_q = torch.nn.Linear(dim, dim, bias=qkv_bias)
-        self.to_k = torch.nn.Linear(dim, dim, bias=qkv_bias)
-        self.to_v = torch.nn.Linear(dim, dim, bias=qkv_bias)
-        self.attn_drop = torch.nn.Dropout(attn_drop)
-        self.proj = torch.nn.Linear(dim, dim)
-        self.proj_drop = torch.nn.Dropout(proj_drop)
-
-    def forward(self, x, context=None, mask=None):
-        B, N, C = x.shape
-        kv_input = default(context, x)
-
-        q_input = x
-        k_input = kv_input
-        v_input = kv_input
-
-        q = self.to_q(q_input)
-        k = self.to_k(k_input)
-        v = self.to_v(v_input)
-
-        q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h=self.num_heads), (q, k, v))
-
-        attn = (q @ k.transpose(-2, -1)) * self.scale
-
-        if mask is None:
-            attn = attn.softmax(dim=-1)
-        else:
-            attn = self.softmax_with_policy(attn, mask)
-
-        x = attn @ v
-        x = x.transpose(1, 2).reshape(B, N, C)
-        x = self.proj(x)
-        x = self.proj_drop(x)
-        return x
 
 
-class Block(torch.nn.Module):
-    def __init__(
-            self, dim, num_heads,
-            mlp_ratio=4.,
-            qkv_bias=False,
-            qk_scale=None,
-            attn_drop=0.,
-            proj_drop=0.,
-            act_layer=torch.nn.GELU,
-            norm_layer=torch.nn.LayerNorm):
-        super().__init__()
-        self.norm1 = norm_layer(dim)
-        self.attn = Attention(
-            dim=dim, num_heads=num_heads, qkv_bias=qkv_bias,
-            qk_scale=qk_scale, attn_drop=attn_drop)
-        self.norm2 = norm_layer(dim)
-        mlp_hidden_dim = int(dim * mlp_ratio)
-        self.mlp = Mlp(in_features=dim, hidden_features=mlp_hidden_dim, act_layer=act_layer, drop=proj_drop)
-
-    def forward(self, context, mask=None):
-        context = context + self.attn(x=self.norm1(context), mask=mask)
-        context = context + self.mlp(self.norm2(context))
-        return context
 
 
 class BasicR2Plus1D(nn.Module):
@@ -100,11 +36,12 @@ class BasicR2Plus1D(nn.Module):
         out = self.conv2(out)
         return out
 
+
 class ResBlock(nn.Module):
     def __init__(self, chan):
         super().__init__()
         self.net = nn.Sequential(
-            BasicR2Plus1D(chan, chan,chan,4,2,3),
+            BasicR2Plus1D(chan, chan, chan, 4, 2, 3),
             nn.ReLU(),
             BasicR2Plus1D(chan, chan, chan, 4, 2, 3),
             nn.ReLU(),
@@ -112,13 +49,15 @@ class ResBlock(nn.Module):
         )
 
     def forward(self, x):
-        #print(f'self.net(x):{self.net(x).shape},x :{x.shape}')
+        # print(f'self.net(x):{self.net(x).shape},x :{x.shape}')
         return self.net(x) + x
+
+
 class ResBlock3(nn.Module):
     def __init__(self, chan):
         super().__init__()
         self.net = nn.Sequential(
-            BasicR2Plus1D(chan, chan,chan,4,2,3),
+            BasicR2Plus1D(chan, chan, chan, 4, 2, 3),
             nn.ReLU(),
             BasicR2Plus1D(chan, chan, chan, 4, 2, 3),
             nn.ReLU(),
@@ -126,13 +65,15 @@ class ResBlock3(nn.Module):
         )
 
     def forward(self, x):
-        #print(f'self.net(x):{self.net(x).shape},x :{x.shape}')
+        # print(f'self.net(x):{self.net(x).shape},x :{x.shape}')
         return self.net(x) + x
+
+
 class ResBlock2(nn.Module):
     def __init__(self, chan):
         super().__init__()
         self.net = nn.Sequential(
-           nn.Conv3d(chan,chan,kernel_size=3,padding=1),
+            nn.Conv3d(chan, chan, kernel_size=3, padding=1),
             nn.ReLU(),
             nn.Conv3d(chan, chan, kernel_size=3, padding=1),
             nn.ReLU(),
@@ -140,8 +81,10 @@ class ResBlock2(nn.Module):
         )
 
     def forward(self, x):
-        #print(f'self.net(x):{self.net(x).shape},x :{x.shape}')
+        # print(f'self.net(x):{self.net(x).shape},x :{x.shape}')
         return self.net(x) + x
+
+
 class TransformerDecoder(torch.nn.Module):
     def __init__(
             self,
@@ -159,145 +102,103 @@ class TransformerDecoder(torch.nn.Module):
         self.patch_num = patch_num
         self.input_side = round(np.power(patch_num, float(1) / float(3)))
 
-
         self.layer1 = nn.Sequential(
-            BasicR2Plus1D(784,294,294,kernel_size=3,padding=1,stride=1),
+            BasicR2Plus1D(784, 294, 294, kernel_size=3, padding=1, stride=1),
             ResBlock(294),
 
-
-
-
-           )
+        )
         self.layer2 = nn.Sequential(
-            BasicR2Plus1D(147, 147, 147, kernel_size=3, padding=1,stride=1),
+            BasicR2Plus1D(147, 147, 147, kernel_size=3, padding=1, stride=1),
             ResBlock2(147),
 
         )
         self.layer3 = nn.Sequential(
-            BasicR2Plus1D(64,64,64,kernel_size=3,padding=1,stride=1),
+            BasicR2Plus1D(64, 64, 64, kernel_size=3, padding=1, stride=1),
             ResBlock2(64),
 
         )
         self.layer4 = nn.Sequential(
-            BasicR2Plus1D(32, 32, 32, kernel_size=3, padding=1,stride=1),
+            BasicR2Plus1D(32, 32, 32, kernel_size=3, padding=1, stride=1),
             ResBlock2(32),
 
         )
         self.uplayer1 = nn.Sequential(
-            nn.ConvTranspose3d(294,147, kernel_size=(4, 4, 4), stride=(2, 2, 2), padding=(1, 1, 1)),
+            nn.ConvTranspose3d(294, 147, kernel_size=(4, 4, 4), stride=(2, 2, 2), padding=(1, 1, 1)),
             nn.BatchNorm3d(147, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
             nn.ReLU(),
         )
-        #self.m1 = Mamba(       # x = rearrange(x, '(b v) h w d -> (b v) (h w) d', b=batchsize, v=view,h=7,w=7)  # [B, V*P, D]
+        self.m1 = Mamba(  # x = rearrange(x, '(b v) h w d -> (b v) (h w) d', b=batchsize, v=view,h=7,w=7)  # [B, V*P, D]
             # This module uses roughly 3 * expand * d_model^2 parameters
-          #  d_model=147,  # Model dimension d_model
-          #  d_state=16,  # SSM state expansion factor
-         #   d_conv=4,  # Local convolution width
-         #   expand=16,  # Block expansion factor
-        #)
+            d_model=147,  # Model dimension d_model
+            d_state=16,  # SSM state expansion factor
+            d_conv=4,  # Local convolution width
+            expand=16,  # Block expansion factor
+        )
         self.uplayer2 = nn.Sequential(
             nn.ConvTranspose3d(147, 64, kernel_size=(4, 4, 4), stride=(2, 2, 2), padding=(1, 1, 1)),
             nn.BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
-            nn.ReLU(),)
-        #self.m2 = Mamba(
+            nn.ReLU(), )
+        self.m2 = Mamba(
             # This module uses roughly 3 * expand * d_model^2 parameters
-        #    d_model=64,  # Model dimension d_model
-        #    d_state=8,  # SSM state expansion factor
-        #    d_conv=4,  # Local convolution width
-        #    expand=8,  # Block expansion factor
-        #)
+            d_model=64,  # Model dimension d_model
+            d_state=8,  # SSM state expansion factor
+            d_conv=4,  # Local convolution width
+            expand=8,  # Block expansion factor
+        )
         self.uplayer3 = nn.Sequential(
             nn.ConvTranspose3d(64, 32, kernel_size=(4, 4, 4), stride=(2, 2, 2), padding=(1, 1, 1)),
             nn.BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
             nn.ReLU(),
         )
-       # self.m3 = Mamba(
-       #     # This module uses roughly 3 * expand * d_model^2 parameters
-       #     d_model=32,  # Model dimension d_model
-       #     d_state=4,  # SSM state expansion factor
-       #     d_conv=4,  # Local convolution width
-       #     expand=4,  # Block expansion factor
-       # )
-        self.flayer=nn.Conv3d(32, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
-        self.layernorm=nn.LayerNorm(1024)
-
-
-
+        self.m3 = Mamba(
+            # This module uses roughly 3 * expand * d_model^2 parameters
+            d_model=32,  # Model dimension d_model
+            d_state=4,  # SSM state expansion factor
+            d_conv=4,  # Local convolution width
+            expand=4,  # Block expansion factor
+        )
+        self.flayer = nn.Conv3d(32, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        self.layernorm = nn.LayerNorm(1024)
 
     def forward(self, x):
-        #x = rearrange(x, '(b v) (h w) c-> b v  h w c',h=7,w=7)  # [B, V*P, D]
-        #x=x.permute(0,4,1,2,3)
-      #  print(f'\n x in decoder{x.shape}')
 
-        x=self.layernorm(x)
-        x=x.reshape(-1,784,4,4,4).contiguous()
-        #print(f'\n decoder:{self.decoder}')
+        x = self.layernorm(x)
+        x = x.reshape(-1, 784, 4, 4, 4).contiguous()
+
         x = self.layer1(x)
-        x=self.uplayer1(x)
-        #print(f'\n x after layer1 :{x.shape}')# 8 196 8 8 8
+        x = self.uplayer1(x)
+
         batchsize = x.shape[0]
         x = self.layer2(x)
-        x = rearrange(x, 'b d w h l -> b   (w h l) d', b=batchsize, h=8, w=8,l=8).contiguous()  # [B, V*P, D]
-      #  x=self.m1(x)
+        x = rearrange(x, 'b d w h l -> b   (w h l) d', b=batchsize, h=8, w=8, l=8).contiguous()  # [B, V*P, D]
+        x = self.m1(x)
 
-        #print(f'\n x after m1 :{x.shape}')
+
         x = rearrange(x, ' b   (w h l) d ->b d w h l', b=batchsize, h=8, w=8, l=8).contiguous()  # [B, V*P, D]
-        x=self.uplayer2(x)
-        #print(f'\n x after layer2 :{x.shape}')  # 8 98 16 16 16
+        x = self.uplayer2(x)
+
         x = self.layer3(x)
         x = rearrange(x, 'b d w h l -> b   (w h l) d', b=batchsize, h=16, w=16, l=16).contiguous()  # [B, V*P, D]
-     #   x = self.m2(x)
+        x = self.m2(x)
 
-        #print(f'\n x after m1 :{x.shape}')
+
         x = rearrange(x, ' b   (w h l) d ->b d w h l', b=batchsize, h=16, w=16, l=16).contiguous()  # [B, V*P, D]
         x = self.uplayer3(x)
-        #print(f'\n x after layer2 :{x.shape}')  # 8 98 16 16 16
+
         x = self.layer4(x)
         x = rearrange(x, 'b d w h l -> b   (w h l) d', b=batchsize, h=32, w=32, l=32).contiguous()  # [B, V*P, D]
-    #    x = self.m3(x)
+        x = self.m3(x)
 
-       # print(f'\n x after m1 :{x.shape}')
+
         x = rearrange(x, ' b   (w h l) d ->b d w h l', b=batchsize, h=32, w=32, l=32).contiguous()  # [B, V*P, D]
-       # x = self.uplayer4(x)
-       # print(f'\n x after layer2 :{x.shape}')  # 8 98 16 16 16
-        x=self.flayer(x)
-      #  print(f'\n decoder return x :{x.shape}')
+
+
+        x = self.flayer(x)
+
         return x
 
 
-class Transformer(torch.nn.Module):
-    def __init__(
-            self,
-            patch_num=4 ** 3,
-            embed_dim=768,
-            num_heads=12,
-            depth=1,
-            mlp_ratio=4,
-            qkv_bias=False,
-            qk_scale=None,
-            attn_drop=0.,
-            proj_drop=0.,
-            norm_layer=None):
-        super().__init__()
-        self.embed_dim = embed_dim
-        self.patch_num = patch_num
-        norm_layer = norm_layer or partial(torch.nn.LayerNorm)  # eps=1e-6
-        self.emb = torch.nn.Embedding(patch_num, embed_dim)
-        #print(f'\n embed_dim:{embed_dim}')
-        self.blocks = torch.nn.ModuleList([
-            Blocks(dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio,
-                  qkv_bias=qkv_bias, qk_scale=qk_scale, attn_drop=attn_drop,
-                  proj_drop=proj_drop, norm_layer=norm_layer) for _ in range(depth)])
 
-    def forward(self, context):
-        #print(f'\n in prepare :{context.shape}')
-        x = self.emb(torch.arange(self.patch_num, device=context.device))
-        #print(f'\n after emb :{x.shape}')
-        x = x.unsqueeze(0).repeat(context.shape[0], 1, 1)
-        #print(f'\n x :{x.shape},context:{context.shape}')
-        for blk in self.blocks:
-            x = blk(x=x, context=context)
-        return x
 
 
 class Decoder(torch.nn.Module):
@@ -309,10 +210,7 @@ class Decoder(torch.nn.Module):
         if torch.distributed.get_rank() == 0:
             print('Decoder: Progressive Upsampling Transformer-Based')
 
-        #self.patch_num = 4 ** 3
-        #self.trans_patch_size = 4
-        #self.voxel_size = cfg.NETWORK.DECODER.VOXEL_SIZE
-        #self.patch_size = cfg.NETWORK.DECODER.VOXEL_SIZE // self.patch_num
+
 
         self.transformer_decoder = TransformerDecoder(
             embed_dim=cfg.NETWORK.DECODER.GROUP.DIM,
@@ -321,16 +219,11 @@ class Decoder(torch.nn.Module):
             attn_drop=cfg.NETWORK.DECODER.GROUP.SOFTMAX_DROPOUT,
             proj_drop=cfg.NETWORK.DECODER.GROUP.ATTENTION_MLP_DROPOUT)
 
-       # self.prepare = Transformer(embed_dim=1024,num_heads=8)
-      #  self.layer_norm = torch.nn.LayerNorm(cfg.NETWORK.MERGER.FC.DIM)
+
 
     def forward(self, context):
-        # [B, P, D]
-        #print(f'\nx in decoder:{context.shape}')
-       # context = self.prepare(context=context)
-        #print(f'\nx  after prepare:{context.shape}')
-     #   context = self.layer_norm(context)
-        out = self.transformer_decoder(x=context)# decioder context:torch.Size([16, 64, 768])
-       # print(f'\nx after transformer decoder:{out.shape}')#16 1 32 32 32
+
+        out = self.transformer_decoder(x=context)
+
         return out
 

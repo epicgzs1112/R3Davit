@@ -38,19 +38,12 @@ class Encoder(torch.nn.Module):
         batch_size = x.shape[0]
         view = x.shape[1]
         x = rearrange(x, 'b v c h w -> (b v) c h w').contiguous()  # [B, V*P, D]
-        #  print(f'\n x after squeeze:{x.shape}')
-        x = self.model(x)
-        # print(f'\n x begin in encoder:{x.shape}')#24 7 7 768
-        # x = rearrange(x, '(b v) h w d -> b v (h w) d', b=batchsize, v=view,h=7,w=7)  # [B, V*P, D]
-        #print(f'\n x begin in encoder:{x.shape}')#8 3 49 768
-       # x = rearrange(x, '(b v) h w d -> (b v) (h w) d', b=batch_size, v=view, h=7, w=7).contiguous()  # [B, V*P, D]
-        # x=self.model2(x)
-       # x = rearrange(x, '(b v) (h w) d -> b (v h w) d', b=batch_size, v=view, h=7, w=7).contiguous()  # [B, V*P, D]8 147 768
 
-       # x = self.model2(x)
+        x = self.model(x)
+
         x = rearrange(x, 'b (v h w) d -> b v h w d', b=batch_size, v=view, h=7, w=7).contiguous()  # [B, V*P, D]8 147 768
         x = x.mean(dim=1)
-        #print(f'\nccccccc finally context:{x.shape}')#8 49 768
+
         return x
 
 
