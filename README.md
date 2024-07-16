@@ -30,9 +30,9 @@ Official PyTorch implementation of the paper:
 ## Visual result on shapenet
 <img src="imgs/对比.PNG"/>
 ##Visual result on shapenet with randombackground
-<img src="imgs/对比2.PNG"/>
-##Visual result on real sence Pix3d dataset
 <img src="imgs/对比3.PNG"/>
+##Visual result on real sence Pix3d dataset
+<img src="imgs/对比2.PNG"/>
 
 
 
