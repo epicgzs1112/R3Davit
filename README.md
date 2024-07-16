@@ -27,7 +27,12 @@ Official PyTorch implementation of the paper:
 |watercraft   | 0.602 / 0.383   | 0.636 / 0.418 | 0.645 / 0.424 | **0.656 / 0.444** | 
 | overall         | 0.670 / 0.417 | 0.679 / 0.432 | 0.700 / 0.447 | **0.711 / 0.464** |
 
-
+## Visual result on shapenet
+<img src="imgs/对比.PNG"/>
+##Visual result on shapenet with randombackground
+<img src="imgs/对比2.PNG"/>
+##Visual result on real sence Pix3d dataset
+<img src="imgs/对比3.PNG"/>
 
 
 
