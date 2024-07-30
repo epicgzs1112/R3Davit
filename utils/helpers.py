@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Developed by Liying Yang <lyyang69@gmail.com>
+# Developed by chenghuanli <chenghuanli@ecjtu.edu.cn>
+# Refer UMIFormer <https://github.com/GaryZhu1996/UMIFormer>
 import os
 
 import numpy as np

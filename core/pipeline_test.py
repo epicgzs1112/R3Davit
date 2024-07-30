@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-#
-# Developed by Liying Yang <lyyang69@gmail.com>
+#ref  UMIFormer: Mining the Correlations between Similar Tokens for Multi-View 3D Reconstruction.
+# Developed by chenghuanli <chenghuanli@ecjtu.edu.cn>
 import torch
 import os
 import numpy as np

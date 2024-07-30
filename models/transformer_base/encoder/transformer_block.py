@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Developed by Liying Yang <lyyang69@gmail.com>
+#ref  UMIFormer: Mining the Correlations between Similar Tokens for Multi-View 3D Reconstruction.
+# Developed by chenghuanli <chenghuanli@ecjtu.edu.cn>
 # Refer UMIFormer <https://github.com/GaryZhu1996/UMIFormer>
 # Refer TCFormer <https://github.com/zengwang430521/TCFormer>
 
