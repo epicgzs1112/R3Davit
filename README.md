@@ -76,6 +76,6 @@ when eval just add --test --weights pathtoweight   paprameter in  correspond run
 -config.py   -> runner.py  --test --weights pathtoweight trained on shapnet    eval on shapenet
 
 ## Citation
-under reviewing by  Peerj Computer Science!   waiting for accepted!
+Accept by  Peerj Computer Science!   waiting for Publiction!
 
 
