@@ -76,7 +76,15 @@ when eval just add --test --weights pathtoweight   paprameter in  correspond run
 -config.py   -> runner.py  --test --weights pathtoweight trained on shapnet    eval on shapenet
 
 ## Citation
-Accept by  Peerj Computer Science!   waiting for Publiction!
+@article{li2024single,
+  title={Single-view 3D reconstruction via dual attention},
+  author={Li, Chenghuan and Xiao, Meihua and Li, Zehuan and Chen, Fangping and Wang, Dingli},
+  journal={PeerJ Computer Science},
+  volume={10},
+  pages={e2403},
+  year={2024},
+  publisher={PeerJ Inc.}
+}
 
 
 ## Thanks and Reference 
