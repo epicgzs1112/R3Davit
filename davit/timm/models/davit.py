@@ -193,11 +193,11 @@ class ChannelAttention(nn.Module):
 
         qkv = self.qkv(x).reshape(B, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]
-
+        #q,k,v的维度b,head,n,c
         k = k * self.scale
-        attention = k.transpose(-1, -2) @ v
+        attention = k.transpose(-1, -2) @ v   #c n   *  n c  = c c 
         attention = attention.softmax(dim=-1)
-        x = (attention @ q.transpose(-1, -2)).transpose(-1, -2)
+        x = (attention @ q.transpose(-1, -2)).transpose(-1, -2)  # c c * cn = c n  
         x = x.transpose(1, 2).reshape(B, N, C)
         x = self.proj(x)
         return x
@@ -308,12 +308,13 @@ class WindowAttention(nn.Module):
         B_, N, C = x.shape
         qkv = self.qkv(x).reshape(B_, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]
+        #q,k,v的维度b,head,n,c
 
         q = q * self.scale
-        attn = (q @ k.transpose(-2, -1))
+        attn = (q @ k.transpose(-2, -1))#仅作用于满足矩阵乘法的行列数匹配  n c   * c n   = n n 
         attn = self.softmax(attn)
 
-        x = (attn @ v).transpose(1, 2).reshape(B_, N, C)
+        x = (attn @ v).transpose(1, 2).reshape(B_, N, C)  # n n  * n c = n c
         x = self.proj(x)
         return x
 
